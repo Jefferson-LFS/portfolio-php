@@ -28,7 +28,7 @@
 
             "finalizado" => false,
 
-            "data" => "2024-10-11",
+            "data" => "2025-10-11",
 
             "descricao" => "Meu primeiro portfolio. Escrito em PHP e HTML.",
 
@@ -37,13 +37,24 @@
         [
             "titulo" => "FreelanceHours",
 
-            "finalizado" => true,
+            "finalizado" => false,
 
             "data" => "2024-02-12",
 
             "descricao" => "FreelanceHours. Desonvolvido em PHP, Laravel e Livewire.",
 
             "link" => "https://github.com/Jefferson-LFS/freelancehours-app"
+        ],
+        [
+            "titulo" => "WAVE",
+
+            "finalizado" => true,
+
+            "data" => "2024-05-22",
+
+            "descricao" => "Gerador de cargas múltiplas para experimentação em redes de computadores. Desonvolvido em Python e Flask.",
+
+            "link" => "https://github.com/ifpb/wave"
         ],
         [
             "titulo" => "Encurtado de URL",
@@ -58,6 +69,65 @@
         ]
     ];
 
+    function verificaSeEstaFinalizado($p){
+
+       if ( $p['finalizado'] ) {
+        
+        return '<span style="color:green">✅ finalizado</span>';
+
+       }
+       
+        return '<span style="color:crimson">⛔ não finalizado</span>';
+       
+        
+       
+    }
+
+    function filtrarProjetos($listaDeProjetos, $finalizado = null){
+
+        if($finalizado === null){
+            return $listaDeProjetos;
+        }
+
+        $filtrados = [];
+
+        foreach($listaDeProjetos as $projeto){
+
+            if ( $projeto['finalizado'] === $finalizado) {
+         
+                $filtrados [] = $projeto;
+        
+            }    
+
+        }
+
+        return $filtrados;
+    }
+
+        function filtrarProjetosData($listaDeProjetos, $data = null){
+
+            if(is_null($data)){
+                return $listaDeProjetos;
+            }
+    
+            $filtradosData = [];
+    
+            foreach($listaDeProjetos as $projeto){
+    
+                if ($projeto['data'] === $data) {
+             
+                    $filtradosData [] = $projeto;
+            
+                }    
+    
+            }
+    
+            return $filtradosData;
+        
+         
+        
+        }
+
     ?>
 
     <h1><?= $titulo ?></h1>
@@ -70,7 +140,7 @@
     <ul>
 
 
-        <?php foreach ($projetos as $projeto): ?>
+        <?php foreach (filtrarProjetosData($projetos, null) as $projeto): ?>
 
 
             <div
@@ -87,25 +157,14 @@
 
                 <p><?= $projeto['descricao'] ?></p>
 
-                <div>
+                <div></html>
 
                     <div><?= $projeto['data'] ?></div>
 
                     <div>Projeto:
 
-                        <?php if (!$projeto['finalizado']): ?>
-
-                            <span style="color:crimson">⛔ não finalizado</span>
-
-
-                        <?php else: ?>
-
-                            <span style="color:green">✅ finalizado</span>
-
-
-                        <?php endif; ?>
-
-
+                      <?=verificaSeEstaFinalizado($projeto)?>
+                    
                     </div>
                 
                 <div>Link: <a href=""><?= $projeto['link'] ?></a></div>
@@ -118,42 +177,6 @@
 
 
     </ul>
-
-
-
-    <!-- <div>
-
-        <h2><?= $projeto ?></h2>
-
-        <p><?= $descricao ?></p>
-
-        <div>
-
-            <div><?= $dataDoProjeto ?></div>
-
-            <div>Projeto 1:
-
-  
-
-            <?php if (!$finalizado): ?>
-
-                <span style="color:crimson">⛔ não finalizado</span>
-
-                
-            <?php else: ?>
-
-                <span style="color:green">✅ finalizado</span>
-                
-
-            <?php endif; ?>
-
-               
-            </div>
-
-
-        </div>
-
-    </div> -->
 
 
 </body>
