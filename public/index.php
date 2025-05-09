@@ -28,7 +28,7 @@
 
             "finalizado" => false,
 
-            "data" => "2025-10-11",
+            "year" => 2025,
 
             "descricao" => "Meu primeiro portfolio. Escrito em PHP e HTML.",
 
@@ -39,7 +39,7 @@
 
             "finalizado" => false,
 
-            "data" => "2024-02-12",
+            "year" => 2024,
 
             "descricao" => "FreelanceHours. Desonvolvido em PHP, Laravel e Livewire.",
 
@@ -50,7 +50,7 @@
 
             "finalizado" => true,
 
-            "data" => "2024-05-22",
+            "year" => 2023,
 
             "descricao" => "Gerador de cargas múltiplas para experimentação em redes de computadores. Desonvolvido em Python e Flask.",
 
@@ -59,9 +59,9 @@
         [
             "titulo" => "Encurtado de URL",
 
-            "finalizado" => true,
+            "finalizado" => false,
 
-            "data" => "2024-11-12",
+            "year" => 2024,
 
             "descricao" => "Encurtado de URL. Escrito em Java usando AWS Lambda.",
 
@@ -83,50 +83,41 @@
        
     }
 
-    function filtrarProjetos($listaDeProjetos, $finalizado = null){
+    function DefineBackGround($p){
 
-        if($finalizado === null){
-            return $listaDeProjetos;
-        }
-
-        $filtrados = [];
-
-        foreach($listaDeProjetos as $projeto){
-
-            if ( $projeto['finalizado'] === $finalizado) {
+        if (! ((2024 - $p['year']) >2) ) {
          
-                $filtrados [] = $projeto;
-        
-            }    
-
+         return 'style="background-color: burlywood"';
+ 
         }
-
-        return $filtrados;
-    }
-
-        function filtrarProjetosData($listaDeProjetos, $data = null){
-
-            if(is_null($data)){
-                return $listaDeProjetos;
-            }
+        
+      
+        
+     }
+ 
     
-            $filtradosData = [];
+        // function filtro($itens, $funcao){
+ 
     
-            foreach($listaDeProjetos as $projeto){
+        //     $filtrados = [];
     
-                if ($projeto['data'] === $data) {
+        //     foreach($itens as $item){
+    
+        //         if ($funcao($item)) {
              
-                    $filtradosData [] = $projeto;
+        //             $filtrados [] = $item;
             
-                }    
+        //         }    
+        //     }
     
-            }
-    
-            return $filtradosData;
-        
+        //     return $filtrados;
          
         
-        }
+        // };
+      
+        $projetosFiltrados = array_filter($projetos, function($projeto) {
+            return $projeto['finalizado'] === true;
+        });
 
     ?>
 
@@ -140,16 +131,12 @@
     <ul>
 
 
-        <?php foreach (filtrarProjetosData($projetos, null) as $projeto): ?>
+        <?php foreach ($projetosFiltrados as $projeto): ?>
 
 
             <div
 
-                <?php if(! ((2024 - $ano) >2) ): ?>
-
-                        style="background-color: burlywood"   
-
-                <?php endif; ?>
+                <?=DefineBackGround($projeto)?>
             >
 
                 
@@ -159,7 +146,7 @@
 
                 <div></html>
 
-                    <div><?= $projeto['data'] ?></div>
+                    <div><?= $projeto['year'] ?></div>
 
                     <div>Projeto:
 
